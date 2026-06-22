@@ -1,50 +1,27 @@
 #include "libft.h"
-
-char *ft_strnstr(const char *big, const char *little, size_t len)
+#include <stddef.h>
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t i;
-	size_t j;
-	size_t wl;
+	size_t	i;
+	size_t	j;
 
-	j = 0;
 	i = 0;
-	wl = 0;
-
-	while (little[wl] != '\0')
+	if (little[0] == '\0')
 	{
-		wl++;
+		return ((char *)big);
 	}
-
-	while (i + j < len - 1)
+	while (big[i] != '\0' && i < len)
 	{
-		while (big[i] != little[i])
+		j = 0;
+		while (big[i + j] == little[j] && (i + j) < len)
 		{
-			i++;
-		}
-		while (big[i] == little[i] && big[i] != '\0')
-		{
+			if (little[j + 1] == '\0')
+			{
+				return ((char *)&big[i]);
+			}
 			j++;
-			i++;
 		}
-		if (wl == j)
-		{
-			return (&big[i - j]);
-		}
+		i++;
 	}
-}
-
-#include <stdio.h>
-
-void main(void)
-{
-	char *big = "HolaMundo";
-	
-	printf("%s\n", ft_strnstr(big, "", 5));
-	printf("%s\n", ft_strnstr(big, "Mundo", 9));
-	printf("%s\n", ft_strnstr(big, "Mundo", 5));
-	printf("%s\n", ft_strnstr(big, "Zanahoria", 9));
-	printf("%s\n", ft_strnstr(big, "Mundo", 50));
-	
 	return (0);
-
 }
