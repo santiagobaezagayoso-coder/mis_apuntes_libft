@@ -1,17 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbaeza-g <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/23 09:56:03 by sbaeza-g          #+#    #+#             */
+/*   Updated: 2026/06/23 12:19:27 by sbaeza-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include <stddef.h>
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+void	move(unsigned char *ptrd, unsigned char *ptrs, size_t n)
 {
-	unsigned char	*ptrd;
-	unsigned char	*ptrs;
-	size_t			i;
+	size_t	i;
 
-	if (!dest && !src)
-		return (dest);
 	i = 0;
-	ptrd = (unsigned char *)dest;
-	ptrs = (unsigned char *)src;
 	if (ptrd > ptrs)
 	{
 		while (i < n)
@@ -30,5 +36,17 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 			i++;
 		}
 	}
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	unsigned char	*ptrd;
+	unsigned char	*ptrs;
+
+	if (!dest && !src)
+		return (dest);
+	ptrd = (unsigned char *)dest;
+	ptrs = (unsigned char *)src;
+	move(ptrd, ptrs, n);
 	return (dest);
 }
