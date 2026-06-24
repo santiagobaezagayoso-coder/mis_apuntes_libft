@@ -1,57 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbaeza-g <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/24 10:30:09 by sbaeza-g          #+#    #+#             */
-/*   Updated: 2026/06/24 10:32:33 by sbaeza-g         ###   ########.fr       */
+/*   Created: 2026/06/24 10:58:45 by sbaeza-g          #+#    #+#             */
+/*   Updated: 2026/06/24 11:00:22 by sbaeza-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static size_t	get_digits(long n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	len;
+	unsigned int	i;
+	char			*str;
 
-	len = 0;
-	if (n <= 0)
-		len = 1;
-	while (n != 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*str;
-	size_t	len;
-	long	num;
-
-	num = n;
-	len = get_digits(num);
-	str = malloc(sizeof(char) * (len + 1));
+	if (!s || !f)
+		return (NULL);
+	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!str)
 		return (NULL);
-	str[len] = '\0';
-	if (num == 0)
-		str[0] = '0';
-	if (num < 0)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		str[0] = '-';
-		num = -num;
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	while (num > 0)
-	{
-		str[len - 1] = (num % 10) + '0';
-		num = num / 10;
-		len--;
-	}
+	str[i] = '\0';
 	return (str);
 }
