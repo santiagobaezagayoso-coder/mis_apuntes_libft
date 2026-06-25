@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbaeza-g <sbaeza-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/24 11:33:31 by sbaeza-g          #+#    #+#             */
-/*   Updated: 2026/06/25 15:01:31 by sbaeza-g         ###   ########.fr       */
+/*   Created: 2026/06/25 22:25:29 by sbaeza-g          #+#    #+#             */
+/*   Updated: 2026/06/25 22:25:43 by sbaeza-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
-}
-/*
-#include <stdio.h>
+    t_list *current; 
+    t_list *next_node; 
 
-void main()
-{
-	char s[] = "Hola\n";
-	ft_putendl_fd(s, 1);
-}*/
+    if (!lst || !del)
+        return ;
+    current = *lst;
+    while (current != NULL)
+    {
+        next_node = current->next;
+        ft_lstdelone(current, del);
+        current = next_node;
+    }
+    *lst = NULL;
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbaeza-g <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sbaeza-g <sbaeza-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 15:07:50 by sbaeza-g          #+#    #+#             */
-/*   Updated: 2026/06/23 16:19:44 by sbaeza-g         ###   ########.fr       */
+/*   Updated: 2026/06/25 22:20:34 by sbaeza-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,18 @@ static void	*free_matrix(char **split, size_t j)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+static char	**fill_matrix(char const *s, char c, char **split)
 {
-	char	**split;
 	size_t	i;
-	size_t	j;
+	size_t 	j;
 	size_t	word_start;
 
-	if (!s)
-		return (NULL);
-
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!split)
-		return (NULL);
 	i = 0;
-	j = 0; 
+	j = 0;
 	while (s[i] != '\0')
-	{
+	{   
 		while (s[i] == c)
-			i++;	
+			i++;
 		if (s[i] != '\0')
 		{
 			word_start = i;
@@ -80,4 +73,16 @@ char	**ft_split(char const *s, char c)
 	}
 	split[j] = NULL;
 	return (split);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**split;
+
+	if (!s)
+		return (NULL);
+	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!split)
+		return (NULL);
+	return (fill_matrix(s, c, split));
 }
